@@ -1,0 +1,150 @@
+\documentclass[12pt]{report}
+\usepackage[spanish]{babel}
+\selectlanguage{spanish}
+\usepackage[utf8]{inputenc}
+% Bibliografia. Si se cambia, compilar: pdflatex -> biber -> pdflatex
+\usepackage[backend=biber]{biblatex}
+%\addbibresource{bibliografia.bib}
+% Imagenes
+\usepackage{float}
+\usepackage{graphicx}
+\graphicspath{ {images/} }
+% Para poner los items del enumerate en negrita
+\usepackage{enumitem}
+% Margenes
+\usepackage[a4paper,width=160mm,top=30mm,bottom=25mm]{geometry}
+% Comments
+\usepackage{comment}
+%Texto de colores. Definicion de colores para luego, para los títulos
+\usepackage[usenames, dvipsnames]{color}
+\definecolor{gray50}{gray}{0.5}
+\definecolor{graybar}{gray}{0.58}% otro gris para la barra q al hacerse gorda cambia color o eso parece en mi pantalla
+% Código fuente
+\usepackage{listings}
+%\usepackage{xcolor}%<--CAMBIAR LOS COLORES AQUI QUE DA ERROR
+%\lstdefinestyle{perlo}{
+%   language=Perl,
+%   basicstyle=\small\ttfamily,
+%   keywordstyle=\bfseries\color{blue},
+%   commentstyle=\color{purple!40!black},
+%   identifierstyle=\color{black},
+%   stringstyle=\color{orange},
+%}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true,
+inputencoding=latin1,
+extendedchars=true,
+literate={á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1 {ñ}{{\~n}}1,
+language=bash,
+frame=single,
+rulecolor=\color{gray50},
+showstringspaces=false
+}
+%Tablas que se parten al pasar de página, multirow y array para poder usar la m
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{array}
+% TÍTULOS CHULÍSIMOS
+% Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+% \usepackage[Bjornstrup]{fncychap}
+%
+% Títulos decentes
+\usepackage[T1]{fontenc}
+\usepackage{titlesec, blindtext}
+\newcommand{\newtextbar}[1][1.7]{\scalebox{#1}[1]{\textbar}}% Barra mas gorda
+\newcommand{\hsp}{\hspace{12pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{graybar}{\newtextbar}\hsp}{0pt}{\Huge\bfseries}
+% Amañando secciones y subsecciones
+\titlespacing{\section}{1.5em}{1.2em}{0.5em}% \titlespacing{<command>}{<left>}{<before-sep>}{<after-sep>}
+\titleformat{\section}{\Large\bfseries}{\textcolor{gray50}{\thesection}\hsp}{0pt}{\Large\bfseries}% Esto es copia de lo de antes xd
+\titlespacing{\subsection}{1.5em}{1.2em}{0.5em}
+\titleformat{\subsection}{\large\bfseries}{\textcolor{gray50}{\thesubsection}\hsp}{0pt}{\large\bfseries}
+% ENCABEZADO Y PIE DE PAGINA
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\MakeUppercase{\thechapter.\ #1}}{}}% Redefinir chaptermark y sectionmark
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\fancyhead{}% Esto para limpiar el encabezado por defecto
+\fancyhead[L]{\textit{\leftmark}}% \fancyhead[<position specifiers>]{<text>}
+\fancyhead[R]{\textit{\rightmark}}% L=Left,R=Right,C=Center;O=Odd,E=Even
+\fancyfoot{}
+\fancyfoot[L]{David Silva Sanmartín - IES Pablo Serrano}
+\fancyfoot[R]{\thepage}
+% Anchura de las lineas de header y footer
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+% Para las páginas tipo ´plain´ - primeras pags de cada capitulo, indice, bibliografia...
+\fancypagestyle{plain}{ 
+  \fancyhf{}% Borrar header y footer por defecto
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.4pt}
+  \fancyfoot[L]{David Silva Sanmartín - IES Pablo Serrano}
+  \fancyfoot[R]{\thepage}
+}
+% Esto no va a salir pero supongo q se pondra como metadatos
+\title{SME Server: Instalación y configuración}
+\author{David Silva Sanmartín}
+\date{26 de marzo de 2016}
+
+\begin{document}
+
+% Pag del titulo
+\input{chapters/titulo}
+%\begin{figure}
+% \centering 
+% \includegraphics{chapters/portada.pdf}
+%\end{figure}
+
+% Pag del resumen
+%\input{chapters/resumen}
+
+% Indice
+\tableofcontents
+
+% Capitulos...
+%\chapter{Introducción}
+%\input{chapters/introduccion}
+
+\chapter{Instalación}
+\input{chapters/capitulo02}
+
+%\chapter{Configuración por defecto}
+%\input{chapters/capitulo03}
+
+\chapter{Herramientas LAT}
+\input{chapters/lat}
+
+\chapter{Arquitectura del SME Server}
+\input{chapters/arquitectura}
+
+\chapter{Iptables}
+\input{chapters/iptables}
+
+\chapter{El firewall de SME Server}
+\input{chapters/firewall}
+
+
+%\chapter{Conclusión}
+%\input{chapters/conclusion}
+
+%\appendix
+%\chapter{Apéndice}
+%\input{chapters/apendice}
+
+% Bibliografia
+%\nocite{*}
+%\printbibliography
+
+\input{chapters/bibliocutre}
+
+\end{document}
+% Cambio de nombres de cosass
+% http://tex.stackexchange.com/questions/82993/how-to-change-the-name-of-document-elements-like-figure-contents-bibliogr
+% Nombres de capitulo
+% http://texblog.org/2012/07/03/fancy-latex-chapter-styles/
+% Bibliografia
+% https://www.sharelatex.com/learn/Bibliography_management_in_LaTeX
+% Tutorial
+% https://www.sharelatex.com/blog/2013/08/06/thesis-series-pt2.html

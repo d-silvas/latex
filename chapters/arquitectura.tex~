@@ -1,0 +1,28 @@
+Explicación...\\
+
+http://distro.ibiblio.org/smeserver/contribs/gordonr/devguide/html/c1115.htm\\
+
+http://www.sme-server.de/download/Howtos/Customizing\_SME.html\\
+
+https://wiki.contribs.org/SME\_Server:Documentation:Developers\_Manual\\
+
+La arquitectura interna del SME Server se basa en cuatro componentes:
+
+\begin{itemize}
+\item Interfaces de administración, tanto por consola como web.
+\item Bases de datos de configuración.
+\item El sistema de templates, que es usado para generar archivos de configuración.
+\item Eventos y acciones.
+\end{itemize}
+
+Cuando un usuario configura alguno de los aspectos del servidor, la máquina configura automáticamente las aplicaciones que son relevantes a ese cambio. Esto se realiza en varios pasos:
+\begin{itemize}
+\item La interfaz de usuario cambia valores en las bases de datos de configuración. En estas bases de datos se almacena información que describe el estado del sistema, como las asignaciones de direcciones IP, los nombres de dominio, las cuentas de usuario...
+\item Después de haber cambiado estos valores, la interfaz de usuario envía una señal de evento para realizar los cambios en las aplicaciones. Por ejemplo, si hacemos cambios en la configuración del email, el evento que se señala es el 'email-update'. Estos eventos son colecciones de scripts, que se ejecutan en un orden determinado para producir las modificaciones deseadas.
+\item Estos scripts actualizan los ficheros de configuración de las aplicaciones. Los generan usando las templates, que no son más que plantillas usadas para este propósito. Los scripts de actualización leen las bases de datos de configuración, de manera que los nuevos archivos generados contienen nuestras últimas modificaciones.
+\item Por último las aplicaciones son avisadas de que su configuración ha sido cambiada, por lo que releen los archivos o se reinician, según convenga.
+\end{itemize}
+
+Aquí tenemos una imagen que describe este proceso:
+
+
